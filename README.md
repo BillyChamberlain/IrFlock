@@ -64,5 +64,5 @@ Nothing saves a frame or a landmark list. The model downloads once when you clic
 
 The instrument is MediaPipe Face Landmarker, pinned to version 1.1.1, the same one the Make a Face lab used.
 
-## Credits Hello
-William Chamberlain and Tate Something are making the IR sensor (yay). URL: https://billychamberlain.github.io/IrFlock/
+## Credits
+William Chamberlain and Tate Riddell are making the IR sensor (yay). URL: https://billychamberlain.github.io/IrFlock/
