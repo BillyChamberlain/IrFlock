@@ -1,16 +1,18 @@
 #!/usr/bin/env python3
-"""mp3_to_sound.py: turn an MP3 into sound.h, the clip sound_alarm.ino plays.
+"""mp3_to_sound.py: turn an MP3 into sound.h, the recorded scream scream_face.ino
+can loop instead of its made-up one (set USE_CLIP to 1 in the sketch).
 
 The Nano can't decode an MP3, so this does it ahead of time: it decodes the
 file, mixes it to mono, resamples it, trims the silence off both ends, turns it
 up as loud as it will go and stores it as 8-bit samples in the Nano's flash.
 
-    python3 mp3_to_sound.py song.mp3
-    python3 mp3_to_sound.py song.mp3 --start 12.5     # skip to the good part
-    python3 mp3_to_sound.py song.mp3 --rate 6000      # longer clip, more muffled
+    python3 mp3_to_sound.py scream.mp3
+    python3 mp3_to_sound.py scream.mp3 --start 1.5    # skip to the loudest part
+    python3 mp3_to_sound.py scream.mp3 --rate 6000    # longer clip, more muffled
 
-The Nano has room for about 26 KB of sound: roughly 3 seconds at 8000 samples
-a second. A longer MP3 is cut to fit, and the Nano loops whatever is left.
+With the face and the screen library on board, the Nano has room for about
+9 KB of sound: a little over a second at 8000 samples a second, which loops
+well for a scream. A longer MP3 is cut to fit.
 Decoding uses afconvert (built into macOS) or ffmpeg if that's installed.
 """
 
@@ -23,7 +25,7 @@ import sys
 import tempfile
 import wave
 
-MAX_BYTES = 26000       # flash left over after the sketch itself
+MAX_BYTES = 9000        # flash left over after scream_face.ino itself
 
 
 def decode(path, rate):
@@ -88,7 +90,7 @@ def write_header(path, data, rate, source):
 
 
 def main():
-    p = argparse.ArgumentParser(description='Turn an MP3 into sound.h for sound_alarm.ino.')
+    p = argparse.ArgumentParser(description='Turn an MP3 into sound.h for scream_face.ino.')
     p.add_argument('mp3', help='the MP3 (or WAV, M4A, AIFF) to convert')
     p.add_argument('--rate', type=int, default=8000,
                    help='samples per second (default 8000; lower is longer but muffled)')

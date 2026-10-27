@@ -37,11 +37,35 @@ This one works, end to end: a Nano and an HC-SR04 on a breadboard, with an optio
 
 *Ours is a US-025A, a clone of the HC-SR04. Same four pins in the same order (VCC, Trig, Echo, GND), same wiring, same sketch. Either board works.*
 
-Flash `bench/bench.ino` for the sensor alone. Open `bench.html` on localhost in Chrome, click **Connect the Arduino**, and pick the board. Press **D**: a hand at about 40 cm or closer reads `close`, further away reads `here`, and an empty room reads `nobody` after two seconds.
+Flash `bench/bench.ino` for the sensor alone. Open `bench.html` on localhost in Chrome, click **Connect the Arduino**, and pick the board. Press **D**: a hand within 150 cm reads `awake`, and an empty room reads `asleep` after a second. (`screaming` needs the `vol` that `scream_face.ino` prints; `bench.ino` sends only the distance.)
 
 **The lag is the table, not the wire.** Each row's hold (0.5, 1 and 2 seconds in `bench/table-bench.js`) is how long a rule has to stay true before the state changes, and the readings are smoothed so one bad echo doesn't count. Short holds feel instant and flicker; long holds feel calm and slow. Choosing them is part of your table.
 
 **If the upload fails** with `not in sync` or `programmer is not responding`, the Nano has the old bootloader, which is common on clone boards. In the Arduino IDE choose **Tools → Processor → ATmega328P (Old Bootloader)** and upload again (in `arduino-cli`, the board is `arduino:avr:nano:cpu=atmega328old`). After a failed upload, unplug the Nano and plug it back in before the next try, because the port can stay stuck.
+
+### Our build: the screaming face
+
+`bench/scream_face/scream_face.ino` is the sketch our pair runs: the HC-SR04, the OLED and a small speaker on one Nano. Nobody in range, the face on the screen sleeps. Someone closer than 150 cm wakes it up screaming, and the closer they get the louder and higher the scream, the wider the mouth and the harder the face shakes. A second after they leave it goes back to sleep.
+
+| Part | Pin | Nano pin |
+|---|---|---|
+| HC-SR04 | VCC / GND / TRIG / ECHO | 5V / GND / D9 / D10 |
+| OLED | VCC / GND / SDA / SCL | 5V / GND / A4 / A5 |
+| Speaker | through a 220 Ω resistor (quiet) or an NPN transistor (loud) | D3 |
+
+![Wiring: the Nano, the HC-SR04, the OLED and the speaker, with the two ways to drive the speaker.](scream_face/scream-wiring.png)
+
+It needs the **U8g2** library. It prints `cm 42.5 vol 180` lines, so `bench.html` reads it: `cm` becomes `present` and `vol` becomes `loud` in `sense-serial.js`, and `bench/table-bench.js` turns them into `asleep`, `awake` and `screaming`. `piece.js` draws the same face in the browser, with the mouth following `loud`.
+
+![The face at four distances: asleep, waking up at 140 cm, panicking at 80 cm and screaming at 15 cm.](scream_face/face-preview.png)
+
+The scream is made on the Nano as it plays, so it takes no memory. For a recorded scream instead, convert an MP3 into `sound.h` and set `USE_CLIP` to 1 at the top of the sketch:
+
+```bash
+cd bench/scream_face && python3 mp3_to_sound.py scream.mp3
+```
+
+Next to the face there is room for a little over a second of sound, which loops. `--start` skips to the loudest part of the MP3.
 
 ### The screen (optional)
 

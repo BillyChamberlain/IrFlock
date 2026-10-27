@@ -5,11 +5,15 @@
 // the mouth, the bigger the eyes and the harder the face shakes. When nothing
 // has been in range for OFF_MS it calms down and goes back to sleep.
 //
-// The scream is made on the fly (no MP3, no memory used): a harsh sawtooth with
-// wobble, rasp and noise, pushed into distortion as you get closer.
+// Two kinds of scream, picked with USE_CLIP below:
+//   0 (the default): made on the fly, no memory used. A harsh sawtooth with
+//     wobble, rasp and noise that climbs in pitch as you get closer.
+//   1: a recorded scream looped from sound.h, about a second of it. Make
+//     sound.h from any MP3: python3 mp3_to_sound.py scream.mp3
+// Either way it's pushed into distortion as you get closer, for volume.
 //
-// Same serial output as bench.ino ("cm 42.5" lines at 115200, plus "vol 0-255"),
-// so sense-serial.js works unchanged.
+// It prints "cm 42.5 vol 180" lines at 115200, the format bench.ino uses, so
+// bench.html reads it: cm becomes present, vol becomes loud (sense-serial.js).
 //
 // Wiring, Arduino Nano:
 //   HC-SR04  VCC -> 5V    GND -> GND    TRIG -> D9    ECHO -> D10
@@ -17,8 +21,13 @@
 //   Speaker  see scream-wiring.png (D3 through a transistor for real volume)
 // Needs the U8g2 library.
 
+#define USE_CLIP 0
+
 #include <U8g2lib.h>
 #include <Wire.h>
+#if USE_CLIP
+#include "sound.h"
+#endif
 
 // Page mode: draws the screen in eight strips with a 128-byte buffer, because
 // the Nano has 2 KB of RAM and a full frame would take half of it.
@@ -36,18 +45,27 @@ const unsigned long OFF_MS = 1000; // nothing in range this long: back to sleep
 const float LOW_HZ = 750;          // scream pitch at the edge of range
 const float HIGH_HZ = 1700;        // scream pitch up close
 
+#if USE_CLIP
+const uint16_t RATE = SOUND_RATE;  // samples a second, from sound.h
+#else
 const uint16_t RATE = 15625;       // samples a second: 16 MHz / 1024
+#endif
 
-// --- the scream, made one sample at a time in an interrupt ------------------
+// --- the scream, one sample at a time in an interrupt -----------------------
 
 volatile uint16_t baseStep = 0;    // the pitch, set by loop()
 volatile uint8_t vol = 0;          // 0-255, set by loop()
 volatile uint8_t drive = 1;        // distortion, 1 (raw) to 4 (nearly square)
 
+uint16_t pos = 0;                  // USE_CLIP: the next sample of sound.h
 uint16_t phase = 0, step = 0, rasp = 0, lfsr = 0xACE1;
 uint8_t lfo = 0, tick = 0;
 
 ISR(TIMER1_COMPA_vect) {
+#if USE_CLIP
+  int16_t s = (int16_t)pgm_read_byte(&SOUND[pos]) - 128;
+  if (++pos >= SOUND_LEN) pos = 0;
+#else
   // Every 32 samples (2 ms): wobble the pitch, like a voice that can't hold it.
   if (++tick >= 32) {
     tick = 0;
@@ -65,6 +83,7 @@ ISR(TIMER1_COMPA_vect) {
   int16_t s = (int16_t)(phase >> 8) - 128;       // sawtooth, -128..127
   s += (int8_t)(lfsr >> 8) >> 2;                 // breath
   if (rasp & 0x8000) s = (s * 3) >> 2;
+#endif
   s *= drive;                                    // push it into distortion
   if (s > 127) s = 127;
   if (s < -128) s = -128;
@@ -74,6 +93,7 @@ ISR(TIMER1_COMPA_vect) {
 bool screaming = false;
 
 void startScream() {
+  pos = 0;                         // a recorded clip starts from the top
   TCNT1 = 0;
   TIMSK1 |= _BV(OCIE1A);           // start the sample interrupt
   TCCR2A |= _BV(COM2B1);           // connect the PWM to D3

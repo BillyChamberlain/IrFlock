@@ -7,17 +7,22 @@
 //
 // hold is in seconds: how long a rule must stay true before the state changes.
 // It is a tradeoff you choose per row. A short hold feels instant but flickers
-// when a reading wobbles near its line; a long hold is calm but slow. These
-// example rows use 0.5, 1 and 2, the same as the working reference build.
-// Keep "nobody" last, so it catches everything the other rows miss.
+// when a reading wobbles near its line; a long hold is calm but slow.
+// Keep "asleep" last, so it catches everything the other rows miss.
 
 window.TABLE = {
-  // The HC-SR04 example. Replace these with your own signals and rows.
-  signals: ['present', 'near'],
+  // Our build: bench/scream_face/scream_face.ino on the Nano. present comes
+  // from the distance (someone within 150 cm, the same line the sketch wakes up
+  // at), loud from the volume the sketch is screaming at.
+  signals: ['present', 'loud'],
 
   states: [
-    { name: 'close',  when: s => s.near > 0.85,   hold: 0.5 },
-    { name: 'here',   when: s => s.present > 0.5, hold: 1 },
-    { name: 'nobody', when: s => s.present < 0.2, hold: 2 },
+    // Up close the sketch screams at nearly full volume: the face shakes and
+    // the mouth is wide open.
+    { name: 'screaming', when: s => s.present > 0.5 && s.loud > 0.75, hold: 0.3 },
+    // Someone in range: awake and starting to scream, quietly at first.
+    { name: 'awake',     when: s => s.present > 0.5,                  hold: 0.3 },
+    // Nobody for a second: the sketch stops screaming and the face sleeps.
+    { name: 'asleep',    when: s => s.present < 0.2,                  hold: 1 },
   ],
 };
