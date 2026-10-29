@@ -5,15 +5,19 @@
 // the mouth, the bigger the eyes and the harder the face shakes. When nothing
 // has been in range for OFF_MS it calms down and goes back to sleep.
 //
-// Two kinds of scream, picked with USE_CLIP below:
-//   0 (the default): made on the fly, no memory used. A harsh sawtooth with
-//     wobble, rasp and noise that climbs in pitch as you get closer.
-//   1: a recorded scream looped from sound.h, about a second of it. Make
-//     sound.h from any MP3: python3 mp3_to_sound.py scream.mp3
-// Either way it's pushed into distortion as you get closer, for volume.
+// Three sounds, picked with SOUND_MODE below:
+//   SUFFER (the default): yells the clip in sound.h ("SUFFER!") over and over at
+//     full volume, faster the closer you get. Any MP3 works in its place:
+//     python3 mp3_to_sound.py yours.mp3 (about a second fits).
+//   BEEP: a full-volume square-wave alarm, the loudest sound the Nano can make,
+//     beeping faster the closer you get.
+//   SCREAM: made on the fly, no memory used. A harsh sawtooth with wobble, rasp
+//     and noise, louder and higher as you get closer.
+// The mouth on the screen opens while it yells and shuts in the gaps.
 //
 // It prints "cm 42.5 vol 180" lines at 115200, the format bench.ino uses, so
-// bench.html reads it: cm becomes present, vol becomes loud (sense-serial.js).
+// bench.html reads it: cm becomes present, vol (how worked up it is, 0-255,
+// rising as you get closer) becomes loud (sense-serial.js).
 //
 // Wiring, Arduino Nano:
 //   HC-SR04  VCC -> 5V    GND -> GND    TRIG -> D9    ECHO -> D10
@@ -21,11 +25,14 @@
 //   Speaker  see scream-wiring.png (D3 through a transistor for real volume)
 // Needs the U8g2 library.
 
-#define USE_CLIP 0
+#define SCREAM 0
+#define SUFFER 1
+#define BEEP 2
+#define SOUND_MODE SUFFER
 
 #include <U8g2lib.h>
 #include <Wire.h>
-#if USE_CLIP
+#if SOUND_MODE == SUFFER
 #include "sound.h"
 #endif
 
@@ -39,13 +46,18 @@ const int SPEAKER = 3;             // Timer 2's PWM pin (OC2B)
 
 const float ON_CM = 150.0;         // closer than this wakes it up screaming
 const float LOUD_CM = 15.0;        // full scream at this distance or closer
-const uint8_t QUIET = 50;          // the volume at the edge of range, 0-255
+const uint8_t QUIET = 50;          // how worked up it is at the edge of range, 0-255
 const unsigned long OFF_MS = 1000; // nothing in range this long: back to sleep
 
 const float LOW_HZ = 750;          // scream pitch at the edge of range
 const float HIGH_HZ = 1700;        // scream pitch up close
 
-#if USE_CLIP
+const float BEEP_HZ = 2400;         // small speakers are loudest around 2-3 kHz
+const float FAR_GAP_S = 0.6;       // SUFFER / BEEP: the pause between yells or
+const float NEAR_GAP_S = 0.08;     // beeps at the edge of range, and up close
+const float BEEP_S = 0.12;         // BEEP: how long each beep lasts
+
+#if SOUND_MODE == SUFFER
 const uint16_t RATE = SOUND_RATE;  // samples a second, from sound.h
 #else
 const uint16_t RATE = 15625;       // samples a second: 16 MHz / 1024
@@ -53,19 +65,37 @@ const uint16_t RATE = 15625;       // samples a second: 16 MHz / 1024
 
 // --- the scream, one sample at a time in an interrupt -----------------------
 
-volatile uint16_t baseStep = 0;    // the pitch, set by loop()
-volatile uint8_t vol = 0;          // 0-255, set by loop()
+volatile uint16_t baseStep = 0;    // SCREAM: the pitch, set by loop()
+volatile uint8_t amp = 0;          // output volume 0-255, set by loop()
 volatile uint8_t drive = 1;        // distortion, 1 (raw) to 4 (nearly square)
+volatile uint16_t gap = 0;         // SUFFER / BEEP: samples of silence between
+volatile bool voiced = false;      // true while it's making sound, for the mouth
 
-uint16_t pos = 0;                  // USE_CLIP: the next sample of sound.h
+uint16_t pos = 0;                  // SUFFER: the next sample of sound.h
+uint16_t count = 0;                // SUFFER / BEEP: samples into the gap or beep
 uint16_t phase = 0, step = 0, rasp = 0, lfsr = 0xACE1;
 uint8_t lfo = 0, tick = 0;
 
 ISR(TIMER1_COMPA_vect) {
-#if USE_CLIP
-  int16_t s = (int16_t)pgm_read_byte(&SOUND[pos]) - 128;
-  if (++pos >= SOUND_LEN) pos = 0;
+  int16_t s;
+#if SOUND_MODE == SUFFER
+  if (pos < SOUND_LEN) {             // yelling
+    s = (int16_t)pgm_read_byte(&SOUND[pos++]) - 128;
+    voiced = true;
+  } else {                           // the breath before the next one
+    if (++count >= gap) { pos = 0; count = 0; }
+    voiced = false;
+    OCR2B = 0;
+    return;
+  }
+#elif SOUND_MODE == BEEP
+  const uint16_t BEEP_LEN = BEEP_S * RATE;
+  if (++count >= (voiced ? BEEP_LEN : gap)) { count = 0; voiced = !voiced; }
+  if (!voiced) { OCR2B = 0; return; }
+  phase += (uint16_t)(BEEP_HZ * 65536.0 / RATE);
+  s = (phase & 0x8000) ? 127 : -128; // a square wave: full swing, as loud as it gets
 #else
+  voiced = true;
   // Every 32 samples (2 ms): wobble the pitch, like a voice that can't hold it.
   if (++tick >= 32) {
     tick = 0;
@@ -80,20 +110,22 @@ ISR(TIMER1_COMPA_vect) {
 
   phase += step;
   rasp += 300;                                   // a 70 Hz flutter: the rasp
-  int16_t s = (int16_t)(phase >> 8) - 128;       // sawtooth, -128..127
+  s = (int16_t)(phase >> 8) - 128;               // sawtooth, -128..127
   s += (int8_t)(lfsr >> 8) >> 2;                 // breath
   if (rasp & 0x8000) s = (s * 3) >> 2;
 #endif
   s *= drive;                                    // push it into distortion
   if (s > 127) s = 127;
   if (s < -128) s = -128;
-  OCR2B = ((uint16_t)(s + 128) * vol) >> 8;
+  OCR2B = ((uint16_t)(s + 128) * amp) >> 8;
 }
 
 bool screaming = false;
 
 void startScream() {
-  pos = 0;                         // a recorded clip starts from the top
+  pos = 0;                         // the clip starts from the top
+  count = 0;
+  voiced = SOUND_MODE == BEEP;          // a beep starts at once
   TCNT1 = 0;
   TIMSK1 |= _BV(OCIE1A);           // start the sample interrupt
   TCCR2A |= _BV(COM2B1);           // connect the PWM to D3
@@ -105,7 +137,8 @@ void stopScream() {
   TCCR2A &= ~_BV(COM2B1);          // D3 back to a plain pin, held low, so no
   digitalWrite(SPEAKER, LOW);      // current flows through the speaker at rest
   screaming = false;
-  vol = 0;
+  voiced = false;
+  amp = 0;
 }
 
 // --- the sensor -------------------------------------------------------------
@@ -130,6 +163,7 @@ float readCm() {
 const int EYE_L = 40, EYE_R = 88, EYE_Y = 29;
 const int MOUTH_X = 64, MOUTH_Y = 54;
 
+float level = 0;                   // how worked up it is, 0-255, smoothed so it swells
 float mouth = 0;                   // 0 asleep / calm .. 1 full scream
 unsigned long nextBlink = 3000;
 uint8_t frame = 0;
@@ -198,16 +232,23 @@ void drawAwake(float cm) {
     oled.drawFilledEllipse(mx, my + ry - 2, rx / 2, 2, U8G2_DRAW_UPPER_LEFT | U8G2_DRAW_UPPER_RIGHT);  // tongue
   }
 
-  // Status: more A's the louder it gets, and the distance on the right.
+  // Status: what it's yelling, and the distance on the right.
   char buf[16];
+  oled.setFont(u8g2_font_6x12_tr);
+#if SOUND_MODE == SUFFER
+  oled.drawStr(2 + tx, 11, level > 180 ? "SUFFER!!" : "SUFFER");
+#elif SOUND_MODE == BEEP
+  oled.drawStr(2 + tx, 11, level > 180 ? "!! BEEP !!" : "BEEP");
+#else
+  // more A's the louder it gets
   uint8_t n = 1 + (uint8_t)(mouth * 9);
   buf[0] = 'A';
   for (uint8_t i = 1; i <= n; i++) buf[i] = 'A';
   buf[n + 1] = 'H';
   buf[n + 2] = mouth > 0.7 ? '!' : 0;
   buf[n + 3] = 0;
-  oled.setFont(u8g2_font_6x12_tr);
   oled.drawStr(2 + tx, 11, buf);
+#endif
   if (cm < 399.0) {
     dtostrf(cm, 0, 0, buf);
     strcat(buf, "cm");
@@ -218,7 +259,6 @@ void drawAwake(float cm) {
 // --- the loop ---------------------------------------------------------------
 
 unsigned long lastSeen = 0;
-float level = 0;                   // smoothed volume, so it swells instead of jumping
 float cmSmooth = 400;
 
 void setup() {
@@ -257,25 +297,37 @@ void loop() {
     float nearness = constrain((ON_CM - cmSmooth) / (ON_CM - LOUD_CM), 0.0, 1.0);
     float target = QUIET + nearness * (255 - QUIET);
     level += (target - level) * 0.4;
-    vol = (uint8_t)level;
+#if SOUND_MODE == SCREAM
+    amp = (uint8_t)level;            // louder the closer you get
     drive = 1 + (uint8_t)(nearness * 3.5);
     uint16_t s = (LOW_HZ + nearness * (HIGH_HZ - LOW_HZ)) * 65536.0 / RATE;
+#else
+    amp = 255;                       // always as loud as it goes; closer is faster
+    drive = 2;                       // a little distortion: louder, still a word
+    uint16_t s = (FAR_GAP_S - nearness * (FAR_GAP_S - NEAR_GAP_S)) * RATE;
+#endif
     noInterrupts();
+#if SOUND_MODE == SCREAM
     baseStep = s;
+#else
+    gap = s;
+#endif
     interrupts();
   } else if (screaming && now - lastSeen > OFF_MS) {
     stopScream();
     cmSmooth = 400;
   }
 
-  // The mouth follows the volume, so it opens as the scream gets louder.
-  float target = screaming ? (vol - QUIET) / (255.0 - QUIET) * 0.85 + 0.15 : 0;
-  mouth += (target - mouth) * 0.5;
+  // The mouth opens wider the closer you get, while it's yelling, and nearly
+  // shuts in the gaps between yells or beeps.
+  float target = 0;
+  if (screaming) target = voiced ? (level - QUIET) / (255.0 - QUIET) * 0.85 + 0.15 : 0.1;
+  mouth += (target - mouth) * (voiced ? 0.7 : 0.5);
 
   Serial.print("cm ");
   Serial.print(cm, 1);
   Serial.print(" vol ");
-  Serial.print(vol);
+  Serial.print(screaming ? (int)level : 0);
   Serial.println();
 
   frame++;

@@ -59,13 +59,21 @@ It needs the **U8g2** library. It prints `cm 42.5 vol 180` lines, so `bench.html
 
 ![The face at four distances: asleep, waking up at 140 cm, panicking at 80 cm and screaming at 15 cm.](scream_face/face-preview.png)
 
-The scream is made on the Nano as it plays, so it takes no memory. For a recorded scream instead, convert an MP3 into `sound.h` and set `USE_CLIP` to 1 at the top of the sketch:
+Pick its sound with `SOUND_MODE` at the top of the sketch:
+
+| `SOUND_MODE` | What it does |
+|---|---|
+| `SUFFER` (default) | Yells "SUFFER!" (the clip in `sound.h`) over and over at full volume, with shorter breaths the closer you get |
+| `BEEP` | A full-volume 2.4 kHz square-wave alarm, the loudest sound the Nano can make, beeping faster the closer you get |
+| `SCREAM` | A made-up scream, louder and higher as you get closer. Takes no memory. |
+
+The mouth on the screen opens while it yells and shuts between yells. To yell something else, convert any MP3 into `sound.h` (about a second fits):
 
 ```bash
-cd bench/scream_face && python3 mp3_to_sound.py scream.mp3
+cd bench/scream_face && python3 mp3_to_sound.py yours.mp3
 ```
 
-Next to the face there is room for a little over a second of sound, which loops. `--start` skips to the loudest part of the MP3.
+`--start` skips to the loudest part of the MP3. The speaker wiring sets the real volume: through the 220 Ω resistor it is quiet whatever the code does, so use the transistor for a loud one.
 
 ### The screen (optional)
 
