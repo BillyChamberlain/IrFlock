@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """mp3_to_sound.py: turn an MP3 into sound.h, the recorded scream scream_face.ino
-yells over and over (SOUND_MODE SUFFER in the sketch). The one in the repo says
-"SUFFER!", made with: say -v Fred -r 150 -o suffer.aiff "SUFFER!"
+yells over and over (SOUND_MODE CLIP in the sketch). The one in the repo is a
+man's pain scream, made with:
+    python3 mp3_to_sound.py man-pain-scream.mp3 --rate 6000 --max-bytes 10000 --loud 0.15
 
 The Nano can't decode an MP3, so this does it ahead of time: it decodes the
 file, mixes it to mono, resamples it, trims the silence off both ends, turns it
@@ -10,6 +11,7 @@ up as loud as it will go and stores it as 8-bit samples in the Nano's flash.
     python3 mp3_to_sound.py scream.mp3
     python3 mp3_to_sound.py scream.mp3 --start 1.5    # skip to the loudest part
     python3 mp3_to_sound.py scream.mp3 --rate 6000    # longer clip, more muffled
+    python3 mp3_to_sound.py scream.mp3 --loud 0.15    # LOUDER: clip the top 15%
 
 With the face and the screen library on board, the Nano has room for about
 9 KB of sound: a little over a second at 8000 samples a second, which loops
@@ -76,11 +78,12 @@ def highpass(samples, rate, hz):
     return out
 
 
-def to_8bit(samples, rate):
-    # Turn it up so the loudest 0.5% clips: a tiny speaker needs all the
-    # level it can get, and a little clipping is hard to hear on one.
+def to_8bit(samples, rate, loud):
+    # Turn it up until the loudest `loud` share of samples clips: a tiny
+    # speaker needs all the level it can get, and clipping is hard to hear on
+    # one. 0.005 is clean; 0.1 and up is distorted, and much louder.
     peaks = sorted(abs(s) for s in samples)
-    peak = max(peaks[int(len(peaks) * 0.995)], 1)
+    peak = max(peaks[min(len(peaks) - 1, int(len(peaks) * (1 - loud)))], 1)
     gain = 127 / peak
     # A short fade at each end, so the jump back to the start doesn't click.
     fade = max(1, rate // 100)
@@ -116,6 +119,10 @@ def main():
                    help='seconds to skip at the start of the MP3')
     p.add_argument('--highpass', type=float, default=300,
                    help='cut bass below this many Hz, for loudness on a small speaker (0 = off)')
+    p.add_argument('--loud', type=float, default=0.005,
+                   help='share of samples allowed to clip (default 0.005; 0.15 is LOUD and gritty)')
+    p.add_argument('--max-bytes', type=int, default=MAX_BYTES,
+                   help=f'flash to fill (default {MAX_BYTES}; about 10000 is the most that fits)')
     p.add_argument('--seconds', type=float,
                    help='how much to keep (default: as much as fits)')
     p.add_argument('--out', default=os.path.join(os.path.dirname(os.path.abspath(__file__)), 'sound.h'),
@@ -125,12 +132,12 @@ def main():
     samples = decode(args.mp3, args.rate)
     samples = samples[int(args.start * args.rate):]
     samples = trim(samples)
-    keep = MAX_BYTES if args.seconds is None else min(MAX_BYTES, int(args.seconds * args.rate))
+    keep = args.max_bytes if args.seconds is None else min(args.max_bytes, int(args.seconds * args.rate))
     if len(samples) > keep:
         print(f'Clip is {len(samples) / args.rate:.1f} s; keeping the first {keep / args.rate:.1f} s to fit the Nano.')
         samples = samples[:keep]
 
-    data = to_8bit(highpass(samples, args.rate, args.highpass), args.rate)
+    data = to_8bit(highpass(samples, args.rate, args.highpass), args.rate, args.loud)
     write_header(args.out, data, args.rate, args.mp3)
     print(f'Wrote {args.out}: {len(data) / args.rate:.2f} s at {args.rate} Hz, {len(data)} bytes.')
 

@@ -6,9 +6,9 @@
 // has been in range for OFF_MS it calms down and goes back to sleep.
 //
 // Three sounds, picked with SOUND_MODE below:
-//   SUFFER (the default): yells the clip in sound.h ("SUFFER!") over and over at
-//     full volume, faster the closer you get. Any MP3 works in its place:
-//     python3 mp3_to_sound.py yours.mp3 (about a second fits).
+//   CLIP (the default): screams the clip in sound.h (a man's pain scream) over
+//     and over at full volume, faster the closer you get. Any MP3 works in its
+//     place: python3 mp3_to_sound.py yours.mp3 (about a second and a half fits).
 //   BEEP: a full-volume square-wave alarm, the loudest sound the Nano can make,
 //     beeping faster the closer you get.
 //   SCREAM: made on the fly, no memory used. A harsh sawtooth with wobble, rasp
@@ -26,13 +26,13 @@
 // Needs the U8g2 library.
 
 #define SCREAM 0
-#define SUFFER 1
+#define CLIP 1
 #define BEEP 2
-#define SOUND_MODE SUFFER
+#define SOUND_MODE CLIP
 
 #include <U8g2lib.h>
 #include <Wire.h>
-#if SOUND_MODE == SUFFER
+#if SOUND_MODE == CLIP
 #include "sound.h"
 #endif
 
@@ -53,11 +53,11 @@ const float LOW_HZ = 750;          // scream pitch at the edge of range
 const float HIGH_HZ = 1700;        // scream pitch up close
 
 const float BEEP_HZ = 2400;         // small speakers are loudest around 2-3 kHz
-const float FAR_GAP_S = 0.6;       // SUFFER / BEEP: the pause between yells or
+const float FAR_GAP_S = 0.6;       // CLIP / BEEP: the pause between yells or
 const float NEAR_GAP_S = 0.08;     // beeps at the edge of range, and up close
 const float BEEP_S = 0.12;         // BEEP: how long each beep lasts
 
-#if SOUND_MODE == SUFFER
+#if SOUND_MODE == CLIP
 const uint16_t RATE = SOUND_RATE;  // samples a second, from sound.h
 #else
 const uint16_t RATE = 15625;       // samples a second: 16 MHz / 1024
@@ -68,17 +68,17 @@ const uint16_t RATE = 15625;       // samples a second: 16 MHz / 1024
 volatile uint16_t baseStep = 0;    // SCREAM: the pitch, set by loop()
 volatile uint8_t amp = 0;          // output volume 0-255, set by loop()
 volatile uint8_t drive = 1;        // distortion, 1 (raw) to 4 (nearly square)
-volatile uint16_t gap = 0;         // SUFFER / BEEP: samples of silence between
+volatile uint16_t gap = 0;         // CLIP / BEEP: samples of silence between
 volatile bool voiced = false;      // true while it's making sound, for the mouth
 
-uint16_t pos = 0;                  // SUFFER: the next sample of sound.h
-uint16_t count = 0;                // SUFFER / BEEP: samples into the gap or beep
+uint16_t pos = 0;                  // CLIP: the next sample of sound.h
+uint16_t count = 0;                // CLIP / BEEP: samples into the gap or beep
 uint16_t phase = 0, step = 0, rasp = 0, lfsr = 0xACE1;
 uint8_t lfo = 0, tick = 0;
 
 ISR(TIMER1_COMPA_vect) {
   int16_t s;
-#if SOUND_MODE == SUFFER
+#if SOUND_MODE == CLIP
   if (pos < SOUND_LEN) {             // yelling
     s = (int16_t)pgm_read_byte(&SOUND[pos++]) - 128;
     voiced = true;
@@ -235,9 +235,7 @@ void drawAwake(float cm) {
   // Status: what it's yelling, and the distance on the right.
   char buf[16];
   oled.setFont(u8g2_font_6x12_tr);
-#if SOUND_MODE == SUFFER
-  oled.drawStr(2 + tx, 11, level > 180 ? "SUFFER!!" : "SUFFER");
-#elif SOUND_MODE == BEEP
+#if SOUND_MODE == BEEP
   oled.drawStr(2 + tx, 11, level > 180 ? "!! BEEP !!" : "BEEP");
 #else
   // more A's the louder it gets
@@ -303,7 +301,7 @@ void loop() {
     uint16_t s = (LOW_HZ + nearness * (HIGH_HZ - LOW_HZ)) * 65536.0 / RATE;
 #else
     amp = 255;                       // always as loud as it goes; closer is faster
-    drive = 2;                       // a little distortion: louder, still a word
+    drive = 3;                       // pushed into distortion: as loud as it goes
     uint16_t s = (FAR_GAP_S - nearness * (FAR_GAP_S - NEAR_GAP_S)) * RATE;
 #endif
     noInterrupts();

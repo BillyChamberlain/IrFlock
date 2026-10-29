@@ -63,17 +63,17 @@ Pick its sound with `SOUND_MODE` at the top of the sketch:
 
 | `SOUND_MODE` | What it does |
 |---|---|
-| `SUFFER` (default) | Yells "SUFFER!" (the clip in `sound.h`) over and over at full volume, with shorter breaths the closer you get |
+| `CLIP` (default) | Screams the clip in `sound.h` (a man's pain scream) over and over at full volume, pushed into distortion, with shorter breaths the closer you get |
 | `BEEP` | A full-volume 2.4 kHz square-wave alarm, the loudest sound the Nano can make, beeping faster the closer you get |
 | `SCREAM` | A made-up scream, louder and higher as you get closer. Takes no memory. |
 
-The mouth on the screen opens while it yells and shuts between yells. To yell something else, convert any MP3 into `sound.h` (about a second fits):
+The mouth on the screen opens while it yells and shuts between yells. To scream something else, convert any MP3 into `sound.h` (about a second and a half fits):
 
 ```bash
-cd bench/scream_face && python3 mp3_to_sound.py yours.mp3
+cd bench/scream_face && python3 mp3_to_sound.py yours.mp3 --rate 6000 --max-bytes 10000 --loud 0.15
 ```
 
-`--start` skips to the loudest part of the MP3. The speaker wiring sets the real volume: through the 220 Ω resistor it is quiet whatever the code does, so use the transistor for a loud one.
+`--loud 0.15` turns it up until the loudest 15% clips: gritty, and much louder. `--start` skips to the loudest part of the MP3. The speaker wiring sets the real volume: through the 220 Ω resistor it is quiet whatever the code does, so use the transistor for a loud one.
 
 ### The screen (optional)
 
