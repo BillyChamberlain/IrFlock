@@ -12,12 +12,14 @@
 // Keep "nobody" last, so it catches everything the other rows miss.
 
 window.TABLE = {
-  // The HC-SR04 example. Replace these with your own signals and rows.
+  // AAAAAH: the face that names you. Same numbers as bench/name_it/name_it.ino.
+  //   near    = (200 - cm) / 190, so cm 15 reads 0.97
+  //   present = 1 when cm is under 150
   signals: ['present', 'near'],
 
   states: [
-    { name: 'close',  when: s => s.near > 0.85,   hold: 0.5 },
-    { name: 'here',   when: s => s.present > 0.5, hold: 1 },
-    { name: 'nobody', when: s => s.present < 0.2, hold: 2 },
+    { name: 'monster',  when: s => s.near > 0.97,    hold: 1 },   // under 15 cm, 1 s
+    { name: 'stranger', when: s => s.present > 0.5,  hold: 0.5 }, // under 150 cm, 0.5 s
+    { name: 'alone',    when: s => s.present < 0.2,  hold: 5 },   // nobody, 5 s
   ],
 };
