@@ -84,3 +84,4 @@ One file per issue #101–#200: what it is, when it's done, and where to start.
 - [#182](182-write-the-sign-text.md) Write the sign text
 - [#183](183-pick-a-font-and-colour-for-the-sign.md) Pick a font and colour for the sign
 - [#184](184-write-questions-we-expect-at-the-showcase.md) Write questions we expect at the showcase
+- [#185](185-practise-the-30-second-explanation.md) Practise the 30-second explanation
