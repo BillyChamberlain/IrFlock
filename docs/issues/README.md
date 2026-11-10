@@ -52,3 +52,4 @@ One file per issue #101–#200: what it is, when it's done, and where to start.
 - [#150](150-add-the-showcase-date-to-the-readme.md) Add the showcase date to the README
 - [#151](151-write-a-setup-day-schedule.md) Write a setup-day schedule
 - [#152](152-make-a-packing-list-for-showcase-day.md) Make a packing list for showcase day
+- [#153](153-bring-a-spare-usb-cable.md) Bring a spare USB cable
