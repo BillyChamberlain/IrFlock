@@ -10,3 +10,4 @@ One file per issue #101–#200: what it is, when it's done, and where to start.
 - [#108](108-add-a-how-it-works-section.md) Add a 'How it works' section
 - [#109](109-add-a-flow-diagram-of-the-states.md) Add a flow diagram of the states
 - [#110](110-write-down-the-exact-thresholds-in-one-place.md) Write down the exact thresholds in one place
+- [#111](111-move-thresholds-to-the-top-of-sensor-eyes-ino.md) Move thresholds to the top of sensor_eyes.ino
