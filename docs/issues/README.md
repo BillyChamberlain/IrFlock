@@ -31,3 +31,4 @@ One file per issue #101–#200: what it is, when it's done, and where to start.
 - [#129](129-note-the-old-bootloader-setting-for-clone-nanos.md) Note the old-bootloader setting for clone Nanos
 - [#130](130-fix-the-baud-rate-everywhere.md) Fix the baud rate everywhere
 - [#131](131-make-bench-html-show-which-port-is-connected.md) Make bench.html show which port is connected
+- [#132](132-add-a-reconnect-button-to-bench-html.md) Add a reconnect button to bench.html
