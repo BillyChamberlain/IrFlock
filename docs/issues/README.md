@@ -16,3 +16,4 @@ One file per issue #101–#200: what it is, when it's done, and where to start.
 - [#114](114-add-a-button-to-recalibrate.md) Add a button to recalibrate
 - [#115](115-add-a-hysteresis-band-to-the-sonar-states.md) Add a hysteresis band to the sonar states
 - [#116](116-add-a-hysteresis-band-to-the-ir.md) Add a hysteresis band to the IR
+- [#117](117-ignore-single-frame-sonar-spikes.md) Ignore single-frame sonar spikes
