@@ -23,3 +23,4 @@ One file per issue #101–#200: what it is, when it's done, and where to start.
 - [#121](121-show-uptime-in-debug-mode.md) Show uptime in debug mode
 - [#122](122-check-the-sketch-compiles-with-no-warnings.md) Check the sketch compiles with no warnings
 - [#123](123-remove-unused-variables-from-sensor-eyes.md) Remove unused variables from sensor_eyes
+- [#124](124-remove-leftover-two-oled-code.md) Remove leftover two-OLED code
