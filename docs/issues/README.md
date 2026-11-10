@@ -51,3 +51,4 @@ One file per issue #101–#200: what it is, when it's done, and where to start.
 - [#149](149-add-a-milestone-for-the-showcase.md) Add a milestone for the showcase
 - [#150](150-add-the-showcase-date-to-the-readme.md) Add the showcase date to the README
 - [#151](151-write-a-setup-day-schedule.md) Write a setup-day schedule
+- [#152](152-make-a-packing-list-for-showcase-day.md) Make a packing list for showcase day
