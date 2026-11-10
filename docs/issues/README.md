@@ -27,3 +27,4 @@ One file per issue #101–#200: what it is, when it's done, and where to start.
 - [#125](125-remove-commented-out-code.md) Remove commented-out code
 - [#126](126-check-every-sketch-in-bench-still-compiles.md) Check every sketch in bench/ still compiles
 - [#127](127-list-the-arduino-libraries-and-versions.md) List the Arduino libraries and versions
+- [#128](128-add-a-how-to-upload-guide.md) Add a 'how to upload' guide
