@@ -89,3 +89,4 @@ One file per issue #101–#200: what it is, when it's done, and where to start.
 - [#187](187-make-a-gif-of-the-screen-states.md) Make a GIF of the screen states
 - [#188](188-take-photos-at-the-showcase.md) Take photos at the showcase
 - [#189](189-write-a-reflection-after-the-showcase.md) Write a reflection after the showcase
+- [#190](190-write-down-what-each-of-us-did.md) Write down what each of us did
