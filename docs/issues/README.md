@@ -83,3 +83,4 @@ One file per issue #101–#200: what it is, when it's done, and where to start.
 - [#181](181-add-a-floor-mark-showing-where-to-stand.md) Add a floor mark showing where to stand
 - [#182](182-write-the-sign-text.md) Write the sign text
 - [#183](183-pick-a-font-and-colour-for-the-sign.md) Pick a font and colour for the sign
+- [#184](184-write-questions-we-expect-at-the-showcase.md) Write questions we expect at the showcase
