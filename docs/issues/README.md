@@ -56,3 +56,4 @@ One file per issue #101–#200: what it is, when it's done, and where to start.
 - [#154](154-bring-a-spare-nano-with-the-sketch-already-uploade.md) Bring a spare Nano with the sketch already uploaded
 - [#155](155-bring-spare-jumper-wires.md) Bring spare jumper wires
 - [#156](156-test-setup-from-scratch-in-under-5-minutes.md) Test setup from scratch in under 5 minutes
+- [#157](157-test-the-piece-with-someone-who-s-never-seen-it.md) Test the piece with someone who's never seen it
