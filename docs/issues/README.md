@@ -63,3 +63,4 @@ One file per issue #101–#200: what it is, when it's done, and where to start.
 - [#161](161-test-with-a-kid-height-person.md) Test with a kid-height person
 - [#162](162-test-with-a-phone-flashlight-pointed-at-the-ir.md) Test with a phone flashlight pointed at the IR
 - [#163](163-test-the-speaker-volume-in-a-loud-room.md) Test the speaker volume in a loud room
+- [#164](164-add-a-volume-knob-to-the-speaker.md) Add a volume knob to the speaker
