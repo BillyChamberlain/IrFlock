@@ -67,3 +67,4 @@ One file per issue #101–#200: what it is, when it's done, and where to start.
 - [#165](165-add-a-mute-switch.md) Add a mute switch
 - [#166](166-stop-the-scream-from-repeating-too-often.md) Stop the scream from repeating too often
 - [#167](167-pick-a-second-sound-for-the-stranger-state.md) Pick a second sound for the stranger state
+- [#168](168-check-the-speaker-doesn-t-brown-out-the-nano.md) Check the speaker doesn't brown out the Nano
