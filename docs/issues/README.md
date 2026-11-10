@@ -36,3 +36,4 @@ One file per issue #101–#200: what it is, when it's done, and where to start.
 - [#134](134-graph-the-last-10-s-of-readings-in-bench-html.md) Graph the last 10 s of readings in bench.html
 - [#135](135-make-bench-html-work-on-a-phone-screen.md) Make bench.html work on a phone screen
 - [#136](136-add-a-dark-mode-to-bench-html.md) Add a dark mode to bench.html
+- [#137](137-make-fake-sense-js-match-the-real-sensor-ranges.md) Make fake-sense.js match the real sensor ranges
