@@ -91,3 +91,4 @@ One file per issue #101–#200: what it is, when it's done, and where to start.
 - [#189](189-write-a-reflection-after-the-showcase.md) Write a reflection after the showcase
 - [#190](190-write-down-what-each-of-us-did.md) Write down what each of us did
 - [#191](191-tag-a-v1-0-release-after-the-showcase.md) Tag a v1.0 release after the showcase
+- [#192](192-archive-the-bench-sketches-we-didn-t-use.md) Archive the bench sketches we didn't use
