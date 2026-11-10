@@ -60,3 +60,4 @@ One file per issue #101–#200: what it is, when it's done, and where to start.
 - [#158](158-test-what-happens-when-two-people-stand-in-front.md) Test what happens when two people stand in front
 - [#159](159-test-with-someone-walking-past-quickly.md) Test with someone walking past quickly
 - [#160](160-test-from-the-side-at-45-degrees.md) Test from the side at 45 degrees
+- [#161](161-test-with-a-kid-height-person.md) Test with a kid-height person
