@@ -81,3 +81,4 @@ One file per issue #101–#200: what it is, when it's done, and where to start.
 - [#179](179-pick-the-height-the-piece-sits-at.md) Pick the height the piece sits at
 - [#180](180-find-a-table-or-stand-for-the-showcase.md) Find a table or stand for the showcase
 - [#181](181-add-a-floor-mark-showing-where-to-stand.md) Add a floor mark showing where to stand
+- [#182](182-write-the-sign-text.md) Write the sign text
