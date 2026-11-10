@@ -99,3 +99,4 @@ One file per issue #101–#200: what it is, when it's done, and where to start.
 - [#197](197-add-a-table-of-contents-to-the-readme.md) Add a table of contents to the README
 - [#198](198-ask-the-teacher-what-the-rubric-checks.md) Ask the teacher what the rubric checks
 - [#199](199-check-the-repo-against-the-rubric.md) Check the repo against the rubric
+- [#200](200-make-a-short-link-to-the-live-site.md) Make a short link to the live site
