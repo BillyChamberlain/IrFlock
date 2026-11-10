@@ -54,3 +54,4 @@ One file per issue #101–#200: what it is, when it's done, and where to start.
 - [#152](152-make-a-packing-list-for-showcase-day.md) Make a packing list for showcase day
 - [#153](153-bring-a-spare-usb-cable.md) Bring a spare USB cable
 - [#154](154-bring-a-spare-nano-with-the-sketch-already-uploade.md) Bring a spare Nano with the sketch already uploaded
+- [#155](155-bring-spare-jumper-wires.md) Bring spare jumper wires
