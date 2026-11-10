@@ -44,3 +44,4 @@ One file per issue #101–#200: what it is, when it's done, and where to start.
 - [#142](142-add-a-page-title-and-description-to-index-html.md) Add a page title and description to index.html
 - [#143](143-add-alt-text-to-every-image.md) Add alt text to every image
 - [#144](144-compress-the-bench-img-photos.md) Compress the bench/img photos
+- [#145](145-delete-the-ds-store-files-from-the-repo.md) Delete the .DS_Store files from the repo
