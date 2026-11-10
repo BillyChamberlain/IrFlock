@@ -48,3 +48,4 @@ One file per issue #101–#200: what it is, when it's done, and where to start.
 - [#146](146-add-a-contributing-note.md) Add a CONTRIBUTING note
 - [#147](147-add-a-codeowners-file.md) Add a CODEOWNERS file
 - [#148](148-protect-the-main-branch.md) Protect the main branch
+- [#149](149-add-a-milestone-for-the-showcase.md) Add a milestone for the showcase
