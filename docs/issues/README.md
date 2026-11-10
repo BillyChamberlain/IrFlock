@@ -21,3 +21,4 @@ One file per issue #101–#200: what it is, when it's done, and where to start.
 - [#119](119-log-the-time-of-each-state-change-to-serial.md) Log the time of each state change to Serial
 - [#120](120-add-a-state-counter-to-the-screen-corner.md) Add a state counter to the screen corner
 - [#121](121-show-uptime-in-debug-mode.md) Show uptime in debug mode
+- [#122](122-check-the-sketch-compiles-with-no-warnings.md) Check the sketch compiles with no warnings
