@@ -77,3 +77,4 @@ One file per issue #101–#200: what it is, when it's done, and where to start.
 - [#175](175-add-a-transition-between-faces.md) Add a transition between faces
 - [#176](176-make-the-enclosure-look-finished.md) Make the enclosure look finished
 - [#177](177-hide-the-wires-inside-the-enclosure.md) Hide the wires inside the enclosure
+- [#178](178-cut-a-clean-window-for-the-oled.md) Cut a clean window for the OLED
