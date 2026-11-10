@@ -19,6 +19,7 @@
 //
 // Needs the U8g2 library (Arduino IDE -> Library Manager -> "U8g2").
 // Board: Arduino Nano. If upload fails: Processor -> ATmega328P (Old Bootloader).
+//Fixed the I2C clock speed to 400 kHz, because the Nano's default 100 kHz is too slow for the screens to keep up with the fast loop().
 
 #include <U8g2lib.h>
 #include <Wire.h>
