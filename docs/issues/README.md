@@ -80,3 +80,4 @@ One file per issue #101–#200: what it is, when it's done, and where to start.
 - [#178](178-cut-a-clean-window-for-the-oled.md) Cut a clean window for the OLED
 - [#179](179-pick-the-height-the-piece-sits-at.md) Pick the height the piece sits at
 - [#180](180-find-a-table-or-stand-for-the-showcase.md) Find a table or stand for the showcase
+- [#181](181-add-a-floor-mark-showing-where-to-stand.md) Add a floor mark showing where to stand
