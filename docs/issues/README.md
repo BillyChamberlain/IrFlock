@@ -39,3 +39,4 @@ One file per issue #101–#200: what it is, when it's done, and where to start.
 - [#137](137-make-fake-sense-js-match-the-real-sensor-ranges.md) Make fake-sense.js match the real sensor ranges
 - [#138](138-add-a-keyboard-shortcut-to-switch-fake-and-real-da.md) Add a keyboard shortcut to switch fake and real data
 - [#139](139-explain-fake-sense-js-in-a-comment.md) Explain fake-sense.js in a comment
+- [#140](140-check-index-html-loads-with-no-console-errors.md) Check index.html loads with no console errors
