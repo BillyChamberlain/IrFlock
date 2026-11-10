@@ -50,3 +50,4 @@ One file per issue #101–#200: what it is, when it's done, and where to start.
 - [#148](148-protect-the-main-branch.md) Protect the main branch
 - [#149](149-add-a-milestone-for-the-showcase.md) Add a milestone for the showcase
 - [#150](150-add-the-showcase-date-to-the-readme.md) Add the showcase date to the README
+- [#151](151-write-a-setup-day-schedule.md) Write a setup-day schedule
