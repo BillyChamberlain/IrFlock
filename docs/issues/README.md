@@ -46,3 +46,4 @@ One file per issue #101–#200: what it is, when it's done, and where to start.
 - [#144](144-compress-the-bench-img-photos.md) Compress the bench/img photos
 - [#145](145-delete-the-ds-store-files-from-the-repo.md) Delete the .DS_Store files from the repo
 - [#146](146-add-a-contributing-note.md) Add a CONTRIBUTING note
+- [#147](147-add-a-codeowners-file.md) Add a CODEOWNERS file
