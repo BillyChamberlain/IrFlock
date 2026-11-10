@@ -17,3 +17,4 @@ One file per issue #101–#200: what it is, when it's done, and where to start.
 - [#115](115-add-a-hysteresis-band-to-the-sonar-states.md) Add a hysteresis band to the sonar states
 - [#116](116-add-a-hysteresis-band-to-the-ir.md) Add a hysteresis band to the IR
 - [#117](117-ignore-single-frame-sonar-spikes.md) Ignore single-frame sonar spikes
+- [#118](118-use-a-median-of-5-for-the-sonar.md) Use a median of 5 for the sonar
