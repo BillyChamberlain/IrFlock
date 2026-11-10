@@ -78,3 +78,4 @@ One file per issue #101–#200: what it is, when it's done, and where to start.
 - [#176](176-make-the-enclosure-look-finished.md) Make the enclosure look finished
 - [#177](177-hide-the-wires-inside-the-enclosure.md) Hide the wires inside the enclosure
 - [#178](178-cut-a-clean-window-for-the-oled.md) Cut a clean window for the OLED
+- [#179](179-pick-the-height-the-piece-sits-at.md) Pick the height the piece sits at
