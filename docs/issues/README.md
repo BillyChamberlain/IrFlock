@@ -6,3 +6,4 @@ One file per issue #101–#200: what it is, when it's done, and where to start.
 - [#104](104-add-a-parts-list-to-the-readme.md) Add a parts list to the README
 - [#105](105-add-a-cost-estimate-for-the-build.md) Add a cost estimate for the build
 - [#106](106-explain-what-irflock-means-in-the-readme.md) Explain what IrFlock means in the README
+- [#107](107-write-a-one-line-pitch-for-the-piece.md) Write a one-line pitch for the piece
