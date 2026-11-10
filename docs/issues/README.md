@@ -33,3 +33,4 @@ One file per issue #101–#200: what it is, when it's done, and where to start.
 - [#131](131-make-bench-html-show-which-port-is-connected.md) Make bench.html show which port is connected
 - [#132](132-add-a-reconnect-button-to-bench-html.md) Add a reconnect button to bench.html
 - [#133](133-show-raw-sonar-and-ir-numbers-in-bench-html.md) Show raw sonar and IR numbers in bench.html
+- [#134](134-graph-the-last-10-s-of-readings-in-bench-html.md) Graph the last 10 s of readings in bench.html
