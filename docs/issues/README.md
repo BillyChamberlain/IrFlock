@@ -38,3 +38,4 @@ One file per issue #101–#200: what it is, when it's done, and where to start.
 - [#136](136-add-a-dark-mode-to-bench-html.md) Add a dark mode to bench.html
 - [#137](137-make-fake-sense-js-match-the-real-sensor-ranges.md) Make fake-sense.js match the real sensor ranges
 - [#138](138-add-a-keyboard-shortcut-to-switch-fake-and-real-da.md) Add a keyboard shortcut to switch fake and real data
+- [#139](139-explain-fake-sense-js-in-a-comment.md) Explain fake-sense.js in a comment
