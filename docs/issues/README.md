@@ -75,3 +75,4 @@ One file per issue #101–#200: what it is, when it's done, and where to start.
 - [#173](173-turn-the-face-drawings-into-bitmaps.md) Turn the face drawings into bitmaps
 - [#174](174-show-the-faces-on-the-oled.md) Show the faces on the OLED
 - [#175](175-add-a-transition-between-faces.md) Add a transition between faces
+- [#176](176-make-the-enclosure-look-finished.md) Make the enclosure look finished
