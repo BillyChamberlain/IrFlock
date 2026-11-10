@@ -41,3 +41,4 @@ One file per issue #101–#200: what it is, when it's done, and where to start.
 - [#139](139-explain-fake-sense-js-in-a-comment.md) Explain fake-sense.js in a comment
 - [#140](140-check-index-html-loads-with-no-console-errors.md) Check index.html loads with no console errors
 - [#141](141-add-a-favicon-to-the-site.md) Add a favicon to the site
+- [#142](142-add-a-page-title-and-description-to-index-html.md) Add a page title and description to index.html
