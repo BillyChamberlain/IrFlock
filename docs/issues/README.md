@@ -32,3 +32,4 @@ One file per issue #101–#200: what it is, when it's done, and where to start.
 - [#130](130-fix-the-baud-rate-everywhere.md) Fix the baud rate everywhere
 - [#131](131-make-bench-html-show-which-port-is-connected.md) Make bench.html show which port is connected
 - [#132](132-add-a-reconnect-button-to-bench-html.md) Add a reconnect button to bench.html
+- [#133](133-show-raw-sonar-and-ir-numbers-in-bench-html.md) Show raw sonar and IR numbers in bench.html
