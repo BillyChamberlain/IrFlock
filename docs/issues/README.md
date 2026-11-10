@@ -69,3 +69,4 @@ One file per issue #101–#200: what it is, when it's done, and where to start.
 - [#167](167-pick-a-second-sound-for-the-stranger-state.md) Pick a second sound for the stranger state
 - [#168](168-check-the-speaker-doesn-t-brown-out-the-nano.md) Check the speaker doesn't brown out the Nano
 - [#169](169-add-a-capacitor-across-the-speaker-power.md) Add a capacitor across the speaker power
+- [#170](170-draw-the-monster-face.md) Draw the 'monster' face
