@@ -97,3 +97,4 @@ One file per issue #101–#200: what it is, when it's done, and where to start.
 - [#195](195-check-every-link-in-system-charter-md.md) Check every link in SYSTEM_CHARTER.md
 - [#196](196-spell-check-the-readme-and-charter.md) Spell-check the README and charter
 - [#197](197-add-a-table-of-contents-to-the-readme.md) Add a table of contents to the README
+- [#198](198-ask-the-teacher-what-the-rubric-checks.md) Ask the teacher what the rubric checks
