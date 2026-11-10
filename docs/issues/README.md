@@ -72,3 +72,4 @@ One file per issue #101–#200: what it is, when it's done, and where to start.
 - [#170](170-draw-the-monster-face.md) Draw the 'monster' face
 - [#171](171-draw-the-stranger-face.md) Draw the 'stranger' face
 - [#172](172-draw-the-alone-face.md) Draw the 'alone' face
+- [#173](173-turn-the-face-drawings-into-bitmaps.md) Turn the face drawings into bitmaps
