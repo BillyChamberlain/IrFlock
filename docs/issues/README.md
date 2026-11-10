@@ -11,3 +11,4 @@ One file per issue #101–#200: what it is, when it's done, and where to start.
 - [#109](109-add-a-flow-diagram-of-the-states.md) Add a flow diagram of the states
 - [#110](110-write-down-the-exact-thresholds-in-one-place.md) Write down the exact thresholds in one place
 - [#111](111-move-thresholds-to-the-top-of-sensor-eyes-ino.md) Move thresholds to the top of sensor_eyes.ino
+- [#112](112-add-a-calibration-mode-on-startup.md) Add a calibration mode on startup
