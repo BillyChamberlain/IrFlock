@@ -57,3 +57,4 @@ One file per issue #101–#200: what it is, when it's done, and where to start.
 - [#155](155-bring-spare-jumper-wires.md) Bring spare jumper wires
 - [#156](156-test-setup-from-scratch-in-under-5-minutes.md) Test setup from scratch in under 5 minutes
 - [#157](157-test-the-piece-with-someone-who-s-never-seen-it.md) Test the piece with someone who's never seen it
+- [#158](158-test-what-happens-when-two-people-stand-in-front.md) Test what happens when two people stand in front
