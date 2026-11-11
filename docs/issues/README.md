@@ -1,0 +1,102 @@
+# Issue plans
+One file per issue #101–#200: what it is, when it's done, and where to start.
+- [#101](101-add-a-wiring-diagram-for-sensor-eyes.md) Add a wiring diagram for sensor_eyes
+- [#102](102-label-every-pin-in-the-drawing.md) Label every pin in the drawing
+- [#103](103-scan-the-drawing-at-full-resolution.md) Scan the drawing at full resolution
+- [#104](104-add-a-parts-list-to-the-readme.md) Add a parts list to the README
+- [#105](105-add-a-cost-estimate-for-the-build.md) Add a cost estimate for the build
+- [#106](106-explain-what-irflock-means-in-the-readme.md) Explain what IrFlock means in the README
+- [#107](107-write-a-one-line-pitch-for-the-piece.md) Write a one-line pitch for the piece
+- [#108](108-add-a-how-it-works-section.md) Add a 'How it works' section
+- [#109](109-add-a-flow-diagram-of-the-states.md) Add a flow diagram of the states
+- [#110](110-write-down-the-exact-thresholds-in-one-place.md) Write down the exact thresholds in one place
+- [#111](111-move-thresholds-to-the-top-of-sensor-eyes-ino.md) Move thresholds to the top of sensor_eyes.ino
+- [#112](112-add-a-calibration-mode-on-startup.md) Add a calibration mode on startup
+- [#113](113-save-calibrated-thresholds-to-eeprom.md) Save calibrated thresholds to EEPROM
+- [#114](114-add-a-button-to-recalibrate.md) Add a button to recalibrate
+- [#115](115-add-a-hysteresis-band-to-the-sonar-states.md) Add a hysteresis band to the sonar states
+- [#116](116-add-a-hysteresis-band-to-the-ir.md) Add a hysteresis band to the IR
+- [#117](117-ignore-single-frame-sonar-spikes.md) Ignore single-frame sonar spikes
+- [#118](118-use-a-median-of-5-for-the-sonar.md) Use a median of 5 for the sonar
+- [#119](119-log-the-time-of-each-state-change-to-serial.md) Log the time of each state change to Serial
+- [#120](120-add-a-state-counter-to-the-screen-corner.md) Add a state counter to the screen corner
+- [#121](121-show-uptime-in-debug-mode.md) Show uptime in debug mode
+- [#122](122-check-the-sketch-compiles-with-no-warnings.md) Check the sketch compiles with no warnings
+- [#123](123-remove-unused-variables-from-sensor-eyes.md) Remove unused variables from sensor_eyes
+- [#124](124-remove-leftover-two-oled-code.md) Remove leftover two-OLED code
+- [#125](125-remove-commented-out-code.md) Remove commented-out code
+- [#126](126-check-every-sketch-in-bench-still-compiles.md) Check every sketch in bench/ still compiles
+- [#127](127-list-the-arduino-libraries-and-versions.md) List the Arduino libraries and versions
+- [#128](128-add-a-how-to-upload-guide.md) Add a 'how to upload' guide
+- [#129](129-note-the-old-bootloader-setting-for-clone-nanos.md) Note the old-bootloader setting for clone Nanos
+- [#130](130-fix-the-baud-rate-everywhere.md) Fix the baud rate everywhere
+- [#131](131-make-bench-html-show-which-port-is-connected.md) Make bench.html show which port is connected
+- [#132](132-add-a-reconnect-button-to-bench-html.md) Add a reconnect button to bench.html
+- [#133](133-show-raw-sonar-and-ir-numbers-in-bench-html.md) Show raw sonar and IR numbers in bench.html
+- [#134](134-graph-the-last-10-s-of-readings-in-bench-html.md) Graph the last 10 s of readings in bench.html
+- [#135](135-make-bench-html-work-on-a-phone-screen.md) Make bench.html work on a phone screen
+- [#136](136-add-a-dark-mode-to-bench-html.md) Add a dark mode to bench.html
+- [#137](137-make-fake-sense-js-match-the-real-sensor-ranges.md) Make fake-sense.js match the real sensor ranges
+- [#138](138-add-a-keyboard-shortcut-to-switch-fake-and-real-da.md) Add a keyboard shortcut to switch fake and real data
+- [#139](139-explain-fake-sense-js-in-a-comment.md) Explain fake-sense.js in a comment
+- [#140](140-check-index-html-loads-with-no-console-errors.md) Check index.html loads with no console errors
+- [#141](141-add-a-favicon-to-the-site.md) Add a favicon to the site
+- [#142](142-add-a-page-title-and-description-to-index-html.md) Add a page title and description to index.html
+- [#143](143-add-alt-text-to-every-image.md) Add alt text to every image
+- [#144](144-compress-the-bench-img-photos.md) Compress the bench/img photos
+- [#145](145-delete-the-ds-store-files-from-the-repo.md) Delete the .DS_Store files from the repo
+- [#146](146-add-a-contributing-note.md) Add a CONTRIBUTING note
+- [#147](147-add-a-codeowners-file.md) Add a CODEOWNERS file
+- [#148](148-protect-the-main-branch.md) Protect the main branch
+- [#149](149-add-a-milestone-for-the-showcase.md) Add a milestone for the showcase
+- [#150](150-add-the-showcase-date-to-the-readme.md) Add the showcase date to the README
+- [#151](151-write-a-setup-day-schedule.md) Write a setup-day schedule
+- [#152](152-make-a-packing-list-for-showcase-day.md) Make a packing list for showcase day
+- [#153](153-bring-a-spare-usb-cable.md) Bring a spare USB cable
+- [#154](154-bring-a-spare-nano-with-the-sketch-already-uploade.md) Bring a spare Nano with the sketch already uploaded
+- [#155](155-bring-spare-jumper-wires.md) Bring spare jumper wires
+- [#156](156-test-setup-from-scratch-in-under-5-minutes.md) Test setup from scratch in under 5 minutes
+- [#157](157-test-the-piece-with-someone-who-s-never-seen-it.md) Test the piece with someone who's never seen it
+- [#158](158-test-what-happens-when-two-people-stand-in-front.md) Test what happens when two people stand in front
+- [#159](159-test-with-someone-walking-past-quickly.md) Test with someone walking past quickly
+- [#160](160-test-from-the-side-at-45-degrees.md) Test from the side at 45 degrees
+- [#161](161-test-with-a-kid-height-person.md) Test with a kid-height person
+- [#162](162-test-with-a-phone-flashlight-pointed-at-the-ir.md) Test with a phone flashlight pointed at the IR
+- [#163](163-test-the-speaker-volume-in-a-loud-room.md) Test the speaker volume in a loud room
+- [#164](164-add-a-volume-knob-to-the-speaker.md) Add a volume knob to the speaker
+- [#165](165-add-a-mute-switch.md) Add a mute switch
+- [#166](166-stop-the-scream-from-repeating-too-often.md) Stop the scream from repeating too often
+- [#167](167-pick-a-second-sound-for-the-stranger-state.md) Pick a second sound for the stranger state
+- [#168](168-check-the-speaker-doesn-t-brown-out-the-nano.md) Check the speaker doesn't brown out the Nano
+- [#169](169-add-a-capacitor-across-the-speaker-power.md) Add a capacitor across the speaker power
+- [#170](170-draw-the-monster-face.md) Draw the 'monster' face
+- [#171](171-draw-the-stranger-face.md) Draw the 'stranger' face
+- [#172](172-draw-the-alone-face.md) Draw the 'alone' face
+- [#173](173-turn-the-face-drawings-into-bitmaps.md) Turn the face drawings into bitmaps
+- [#174](174-show-the-faces-on-the-oled.md) Show the faces on the OLED
+- [#175](175-add-a-transition-between-faces.md) Add a transition between faces
+- [#176](176-make-the-enclosure-look-finished.md) Make the enclosure look finished
+- [#177](177-hide-the-wires-inside-the-enclosure.md) Hide the wires inside the enclosure
+- [#178](178-cut-a-clean-window-for-the-oled.md) Cut a clean window for the OLED
+- [#179](179-pick-the-height-the-piece-sits-at.md) Pick the height the piece sits at
+- [#180](180-find-a-table-or-stand-for-the-showcase.md) Find a table or stand for the showcase
+- [#181](181-add-a-floor-mark-showing-where-to-stand.md) Add a floor mark showing where to stand
+- [#182](182-write-the-sign-text.md) Write the sign text
+- [#183](183-pick-a-font-and-colour-for-the-sign.md) Pick a font and colour for the sign
+- [#184](184-write-questions-we-expect-at-the-showcase.md) Write questions we expect at the showcase
+- [#185](185-practise-the-30-second-explanation.md) Practise the 30-second explanation
+- [#186](186-record-a-longer-demo-video-for-the-readme.md) Record a longer demo video for the README
+- [#187](187-make-a-gif-of-the-screen-states.md) Make a GIF of the screen states
+- [#188](188-take-photos-at-the-showcase.md) Take photos at the showcase
+- [#189](189-write-a-reflection-after-the-showcase.md) Write a reflection after the showcase
+- [#190](190-write-down-what-each-of-us-did.md) Write down what each of us did
+- [#191](191-tag-a-v1-0-release-after-the-showcase.md) Tag a v1.0 release after the showcase
+- [#192](192-archive-the-bench-sketches-we-didn-t-use.md) Archive the bench sketches we didn't use
+- [#193](193-write-a-future-ideas-section.md) Write a 'future ideas' section
+- [#194](194-check-the-readme-renders-correctly-on-github.md) Check the README renders correctly on GitHub
+- [#195](195-check-every-link-in-system-charter-md.md) Check every link in SYSTEM_CHARTER.md
+- [#196](196-spell-check-the-readme-and-charter.md) Spell-check the README and charter
+- [#197](197-add-a-table-of-contents-to-the-readme.md) Add a table of contents to the README
+- [#198](198-ask-the-teacher-what-the-rubric-checks.md) Ask the teacher what the rubric checks
+- [#199](199-check-the-repo-against-the-rubric.md) Check the repo against the rubric
+- [#200](200-make-a-short-link-to-the-live-site.md) Make a short link to the live site
