@@ -25,6 +25,10 @@ const SIGNALS = {
   // echo does not count as somebody leaving.
   present: r => (r.cm !== undefined && r.cm < 150 ? 1 : 0),
 
+  // loud: how hard scream_face.ino is screaming, from the "vol" it prints
+  // (0 to 255). It rises as someone gets closer and drops to 0 once they leave.
+  loud: r => (r.vol === undefined ? 0 : clamp(r.vol / 255)),
+
   // Your signal goes here. A photoresistor printed as "light":
   //   shade: r => (r.light === undefined ? 0 : clamp(1 - r.light / 1023)),
 };
