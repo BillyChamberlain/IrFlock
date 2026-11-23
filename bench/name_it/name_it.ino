@@ -3,9 +3,9 @@
 // scream_face.ino, but now it decides what you ARE before it reacts.
 // Three names, each one a rule that reads only the distance in cm, held:
 //
-//   MONSTER   closer than 15 cm, held 1 s    -> full distorted scream, face shakes
+//   MONSTER   closer than 15 cm, held 1 s  -- I, Will Chamberlain (A human) am changing ts to 7.5cm  -> full distorted scream, face shakes
 //   STRANGER  closer than 150 cm, held 0.5 s -> silent, wide darting eyes, "who's there?"
-//   ALONE     150 cm or more, held 5 s       -> falls asleep, whimpers every 20 s
+//   ALONE     150 cm or more, held 5 s       -> falls asleep, whimpers submissively every 20 s
 //
 // The name is written in the top (yellow) strip of the OLED, so a visitor
 // reads exactly what it decided they are.
@@ -21,9 +21,12 @@
 // Needs the U8g2 library.
 
 #include <U8g2lib.h>
-#include <Wire.h>
+#include <Wire.h>                   
 
-U8G2_SSD1306_128X64_NONAME_1_HW_I2C oled(U8G2_R0, U8X8_PIN_NONE);
+// _2_ = draw the screen in 4 passes instead of 8 (256 bytes of RAM instead of
+// 128). Every circle and ellipse in the face is worked out half as many times.
+// (_F_, one pass, needs 1 KB and leaves the Nano too little memory.)
+U8G2_SSD1306_128X64_NONAME_2_HW_I2C oled(U8G2_R0, U8X8_PIN_NONE);
 
 const int TRIG = 9;
 const int ECHO = 10;
@@ -32,9 +35,9 @@ const int SPEAKER = 3;             // Timer 2's PWM pin (OC2B)
 // ---- The names: a number, a side, a hold ------------------------------------
 // Change these after three fresh Serial Monitor readings of your own room.
 
-const float MONSTER_CM  = 15.0;    // under this...
+const float MONSTER_CM  = 7.5;    // under this...
 const unsigned long MONSTER_HOLD  = 1000;  // ...for 1 s
-const float STRANGER_CM = 150.0;   // under this...
+const float STRANGER_CM = 75.0;   // under this...
 const unsigned long STRANGER_HOLD = 500;   // ...for 0.5 s
 const unsigned long ALONE_HOLD    = 5000;  // 150 cm or more for 5 s
 
@@ -116,7 +119,9 @@ float readCm() {
   digitalWrite(TRIG, HIGH);
   delayMicroseconds(10);
   digitalWrite(TRIG, LOW);
-  unsigned long us = pulseInLong(ECHO, HIGH, 30000);
+  // Wait at most 12 ms (about 2 m). Anything farther is ALONE anyway, and
+  // waiting the full 30 ms for an echo that never comes made every frame slow.
+  unsigned long us = pulseInLong(ECHO, HIGH, 12000);
   return us ? us / 58.0 : 400.0;   // nothing came back reads as far away
 }
 
@@ -229,6 +234,7 @@ void decide(float cm, unsigned long now) {
 // ---- The loop ----------------------------------------------------------------------
 
 unsigned long whimperAt = WHIMPER_EVERY;
+unsigned long lastLoop = 0;
 uint8_t lastName = ALONE;
 
 void setup() {
@@ -266,10 +272,13 @@ void loop() {
   // ---- It does: one action per name, no two the same ----
   float mouthTarget = 0;
   if (name == MONSTER) {
-    // full scream, max distortion, pitch climbing the longer you stay
+    // the alarm: two shrill tones flipping every 80 ms like a car alarm, both
+    // in the 3-4 kHz band where human ears are most sensitive, climbing up to
+    // 400 Hz higher the longer you stay, clipped hard into a buzzy square wave
     float t = constrain((now - candidateSince) / 4000.0, 0.0, 1.0);
-    setPitch(1500 + t * 500);
-    drive = 4;
+    bool high = (now / 80) % 2;
+    setPitch((high ? 4100 : 3200) + t * 400);
+    drive = 8;
     vol = 255;
     soundOn();
     mouthTarget = 1.0;
@@ -307,6 +316,9 @@ void loop() {
   Serial.print(vol);
   Serial.print(" name ");
   Serial.print((int)name);
+  Serial.print(" ms ");
+  Serial.print(now - lastLoop);       // how long the last frame took
+  lastLoop = now;
   Serial.println();
 
   frame++;
