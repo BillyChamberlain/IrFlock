@@ -4,7 +4,7 @@
 // Three names, each one a rule that reads only the distance in cm, held:
 //
 //   MONSTER   closer than 15 cm, held 1 s  -- I, Will Chamberlain (A human) am changing ts to 7.5cm  -> full distorted scream, face shakes
-//   STRANGER  closer than 150 cm, held 0.5 s -> silent, wide darting eyes, "who's there?"
+//   STRANGER  closer than 150 cm, held 0.5 s -> silent, wide darting eyes, "who's there?" I will Chamberlain am changing this to 75cm
 //   ALONE     150 cm or more, held 5 s       -> falls asleep, whimpers submissively every 20 s
 //
 // The name is written in the top (yellow) strip of the OLED, so a visitor
